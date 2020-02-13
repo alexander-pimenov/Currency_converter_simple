@@ -3,6 +3,7 @@ package ru.pimalex1978.converter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 
 /**
  * Конвертер валют с предустановлеными курсами некоторых валют,
@@ -11,7 +12,7 @@ import java.awt.event.*;
  */
 
 public class ConverterGUI {
-    String[] currencyUnits = {
+    private String[] currencyUnits = {
             "units",
             "Australian Dollar",
             "Canadian Dollar",
@@ -48,9 +49,8 @@ public class ConverterGUI {
     private ConverterGUI() {
 
         //###############################################
-        //Ввод только цифр
-//        converter.setFocusable(true);
-//        converter.grabFocus();
+        //Ввод только цифр (не разобрался как прикрепить этот код
+        // для проверки ввода только цифр)
 //
 //        textField1.addKeyListener(new KeyAdapter() {
 //            @Override
@@ -71,6 +71,7 @@ public class ConverterGUI {
                 firstCurrencyUnit.setText(currencyUnits[position]);
             }
         });
+
         secondCountry.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -78,6 +79,7 @@ public class ConverterGUI {
                 secondCurrencyUnit.setText(currencyUnits[position]);
             }
         });
+
         convertButton.addActionListener(new ActionListener() {
 
             //convert Currency
@@ -104,7 +106,7 @@ public class ConverterGUI {
 
                 double amountInPounds = 0.0;
 
-                switch (firstCountry.getSelectedItem().toString()) {
+                switch (Objects.requireNonNull(firstCountry.getSelectedItem()).toString()) {
                     case "AUD":
                         amountInPounds = amountToChange / Australian_Dollar;
                         break;
@@ -135,7 +137,7 @@ public class ConverterGUI {
 
                 double amountChanged = 0.0;
 
-                switch (secondCountry.getSelectedItem().toString()) {
+                switch (Objects.requireNonNull(secondCountry.getSelectedItem()).toString()) {
                     case "AUD":
                         amountChanged = amountInPounds * Australian_Dollar;
                         break;
@@ -166,8 +168,6 @@ public class ConverterGUI {
 
                 String value = String.format("%.2f", amountChanged);
                 textField2.setText(value);
-
-
             }
         });
 
